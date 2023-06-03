@@ -5,7 +5,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/std"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
+	"github.com/histolabs/metro/pb"
 )
 
 type ModuleRegister interface {
@@ -28,6 +30,9 @@ func MakeConfig(regs ...ModuleRegister) Config {
 	amino := codec.NewLegacyAmino()
 	interfaceRegistry := codectypes.NewInterfaceRegistry()
 
+	interfaceRegistry.RegisterInterface("SequencerMsg", (*sdk.Msg)(nil))
+	interfaceRegistry.RegisterImplementations((*sdk.Msg)(nil), &pb.SequencerMsg{})
+	
 	// register the standard types from the sdk
 	std.RegisterLegacyAminoCodec(amino)
 	std.RegisterInterfaces(interfaceRegistry)
