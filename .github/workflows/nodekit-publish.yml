@@ -55,7 +55,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/astriaorg/metro
+            ghcr.io/anomalyfi/metro
           tags: |
             type=ref,event=pr
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
